@@ -53,7 +53,7 @@
                 function() {
                     // Devices are available and can be connected to, lets grab a session
                     console.log("initialization success, requesting session");
-                    chrome.cast.requestSession(function() {
+                    chrome.cast.requestSession(function(e) {
                         // Session established (receiver will have launched by this point)
                         console.log('session request success');
                         this.session = e;
