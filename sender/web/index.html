@@ -63,7 +63,7 @@
                         console.log('session request failure');
                         console.log(e);
                     });
-                },
+                }.bind(this),
                 function(e){
                     console.log("initialization failure");
                     console.log(e);
