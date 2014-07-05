@@ -73,7 +73,7 @@
             // Button click observers
             Chromecast2048.prototype.attachObservers = function() {
                 $(".btn").click(
-                function() {
+                function(e) {
                     var message = $(e.target).data("message");
                     console.log("sending message: " + message);
                     this.session.sendMessage("urn:x-cast:com.twjg.chromecast2048", message, 
