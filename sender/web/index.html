@@ -75,10 +75,12 @@
                 $(".btn").click(
                 function(e) {
                     var message = $(e.target).data("message");
+                    var sendTime = new Date().getTime();
                     console.log("sending message: " + message);
                     this.session.sendMessage("urn:x-cast:com.twjg.chromecast2048", message, 
                     function(){ 
                         console.log("send message success: " + message) 
+                        console.log("round trip time was: " + (new Date().getTime() - sendTime));
                     },
                     function(e) {
                         console.log("send message failure: " + message);
