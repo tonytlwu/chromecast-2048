@@ -21,7 +21,7 @@
 
             function Chromecast2048() {
                 // See https://cast.google.com/publish/#/overview
-                this.applicationID = "0FB6F6B5";
+                this.applicationID = "33AA2579";
 
                 // Wait for Chromecast to be detected
                 window['__onGCastApiAvailable'] = function(loaded, errorInfo) {
@@ -37,7 +37,7 @@
             Chromecast2048.prototype.initializeCastApi = function() {
                 console.log("Initialising cast API");
                 
-                // Device session request - ensures that there are devices available
+                // Create API config with session listeners
                 var sessionRequest = new chrome.cast.SessionRequest(this.applicationID);
                 var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
                 function(e) {
@@ -49,7 +49,7 @@
                 });
 
                 // Initialise Chromecast
-                /* chrome.cast.initialize(apiConfig,
+                chrome.cast.initialize(apiConfig,
                 function() {
                     // Devices are available and can be connected to, lets grab a session
                     console.log("initialization success, requesting session");
@@ -67,7 +67,7 @@
                 function(e){
                     console.log("initialization failure");
                     console.log(e);
-                }); */
+                });
             };
 
             // Button click observers
