@@ -1,3 +1,8 @@
+// Wait till the browser is ready to render the game (avoids glitches)
+window.requestAnimationFrame(function () {
+  new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
+});
+
 // TODO: Refactor to fit in with 2048 code
 window.onload = function() {
     window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
