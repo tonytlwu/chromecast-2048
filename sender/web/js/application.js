@@ -54,6 +54,7 @@ Chromecast2048.prototype = {
         // Initialize input manager
         this.inputManager = new KeyboardInputManager();
         this.inputManager.on("move", this.sendMessage.bind(this));
+        this.inputManager.on("restart", this.sendMessage.bind(this));
         
         var options = {
             transformMinScale: 0.1,
