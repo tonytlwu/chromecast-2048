@@ -1,3 +1,10 @@
+window.keymap = {
+    "0" : "UP",
+    "1" : "RIGHT",
+    "2" : "DOWN",
+    "3" : "LEFT"
+}
+
 window.addEventListener("load",function(){
     // Wait till the browser is ready to render the game (avoids glitches)
     debugger;
@@ -15,8 +22,8 @@ window.addEventListener("load",function(){
 
     var customMessageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.twjg.chromecast2048');
     customMessageBus.onMessage = function(event) {
-        console.log(event);
-        document.getElementById("debug-text").innerHTML = event.data;
+        document.getElementById("debug-text").innerHTML = window.keymap[event.data];
+        window.game.move(event.data);
     }
 
     // Start receiver
