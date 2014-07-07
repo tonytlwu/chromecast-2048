@@ -4,7 +4,8 @@ window.requestAnimationFrame(function () {
 });
 
 // TODO: Refactor to fit in with 2048 code
-window.onload = function() {
+window.addEventListener("load",function(){
+    console.log("Window loaded");
     window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
     window.castReceiverManager.onSenderDisconnected = function(event) {
         if(window.castReceiverManager.getSenders().length == 0 &&
@@ -20,4 +21,4 @@ window.onload = function() {
 
     // Start receiver
     window.castReceiverManager.start();
-}
+});
