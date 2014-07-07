@@ -1,6 +1,7 @@
 function Chromecast2048() {
     // See https://cast.google.com/publish/#/overview
     this.applicationID = "33AA2579";
+    this.initializeUI(); // Initialize UI
 
     // Wait for Chromecast to be detected
     window['__onGCastApiAvailable'] = function(loaded, errorInfo) {
@@ -24,8 +25,8 @@ Chromecast2048.prototype = {
             console.log('New session ID:' + e.sessionId);
         },
         function(e){
-              if (e === 'available') { console.log('receiver found'); }
-              else { console.log('receiver list empty'); }
+            if (e === 'available') { console.log('receiver found'); }
+            else { console.log('receiver list empty'); }
         });
     
         // Initialise Chromecast
@@ -37,7 +38,6 @@ Chromecast2048.prototype = {
                 // Session established (receiver will have launched by this point)
                 console.log('session request success');
                 this.session = e;
-                this.attachObservers(); // Attach click observers
             }.bind(this),
             function(e) {
                 console.log('session request failure');
@@ -49,23 +49,37 @@ Chromecast2048.prototype = {
             console.log(e);
         });
     },
-    // Button click observers
-    attachObservers : function() {
-        $(".btn").click(
-        function(e) {
-            var message = $(e.target).data("message");
-            var sendTime = new Date().getTime();
-            console.log("sending message: " + message);
-            this.session.sendMessage("urn:x-cast:com.twjg.chromecast2048", message, 
-            function(){ 
-                console.log("send message success: " + message) 
-                console.log("round trip time was: " + (new Date().getTime() - sendTime));
-            },
-            function(e) {
-                console.log("send message failure: " + message);
-                console.log(e);
-            })
+    // Initialize UI
+    initializeUI : function(){
+        // Initialize input manager
+        this.inputManager = new KeyboardInputManager();
+        this.inputManager.on("move", this.sendMessage.bind(this));
+        
+        var options = {
+            transformMinScale: 0.1,
+            transformMinRotation: 2,
+            dragBlockHorizontal: true,
+            tapAlways: false
+        };
+        Hammer(document.body, options).on("doubletap", function(ev) {
+            if ( confirm("Restart this game?") ) {
+                this.sendMessage("4");
+            }
         }.bind(this));
+    },
+    // Send message
+    sendMessage : function(message){
+        var sendTime = new Date().getTime();
+        console.log("sending message: " + message);
+        this.session.sendMessage("urn:x-cast:com.twjg.chromecast2048", message, 
+        function(){ 
+            console.log("send message success: " + message) 
+            console.log("round trip time was: " + (new Date().getTime() - sendTime));
+        },
+        function(e) {
+            console.log("send message failure: " + message);
+            console.log(e);
+        });    	
     }
 };
 
