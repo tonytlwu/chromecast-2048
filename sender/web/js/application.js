@@ -1,6 +1,7 @@
 function Chromecast2048() {
     // See https://cast.google.com/publish/#/overview
-    this.applicationID = "33AA2579";
+    this.applicationID = "33AA2579"; // http://jrgrafton.github.io/chromecast-2048
+    this.applicationID = "62260126"; // http://tonytlwu.github.io/chromecast-2048
     this.initializeUI(); // Initialize UI
 
     // Wait for Chromecast to be detected
